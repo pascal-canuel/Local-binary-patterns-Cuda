@@ -40,17 +40,18 @@ void Kernel_LBP(uchar* imgIn, uchar* imgOut, int ImgWidth, int imgHeight) {
 		int centerValue = imgIn[Index + ImgWidth + 1];
 		
 		// sign of values
-		int tl = Sign(imgIn[Index] - centerValue);
-		int tc = Sign(imgIn[Index + 1] - centerValue);
-		int tr = Sign(imgIn[Index + 2] - centerValue);
-		int cl = Sign(imgIn[Index + ImgWidth] - centerValue);
-		int cr = Sign(imgIn[Index + ImgWidth + 2] - centerValue);
-		int bl = Sign(imgIn[Index + ImgWidth * 2] - centerValue);
-		int bc = Sign(imgIn[Index + ImgWidth * 2 + 1] - centerValue);
-		int br = Sign(imgIn[Index + ImgWidth * 2 + 2] - centerValue);
+		int topLeft = Sign(imgIn[Index] - centerValue);
+		int topCenter = Sign(imgIn[Index + 1] - centerValue);
+		int topRight = Sign(imgIn[Index + 2] - centerValue);
+		int centerLeft = Sign(imgIn[Index + ImgWidth] - centerValue);
+		int centerRight = Sign(imgIn[Index + ImgWidth + 2] - centerValue);
+		int bottomLeft = Sign(imgIn[Index + ImgWidth * 2] - centerValue);
+		int bottomCenter = Sign(imgIn[Index + ImgWidth * 2 + 1] - centerValue);
+		int bottomRight = Sign(imgIn[Index + ImgWidth * 2 + 2] - centerValue);
 
 		// convolution
-		imgOut[Index] = tl * 1 + tc * 2 + tr * 4 + cl * 8 + cr * 16 + bl * 32 + bc * 64 + bc * 128;
+		// no need of normalization because the maximum value is 255
+		imgOut[Index] = topLeft * 1 + topCenter * 2 + topRight * 4 + centerLeft * 8 + centerRight * 16 + bottomLeft * 32 + bottomCenter * 64 + bottomRight * 128; 
 	}
 }
 

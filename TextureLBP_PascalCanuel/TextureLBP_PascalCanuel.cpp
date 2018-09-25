@@ -1,5 +1,7 @@
 // TextureLBP_PascalCanuel.cpp : définit le point d'entrée pour l'application console.
-//
+// Pascal Canuel
+// 2018-09-25
+// Examen 1
 
 #include "stdafx.h"
 #include "cuda_runtime.h" 

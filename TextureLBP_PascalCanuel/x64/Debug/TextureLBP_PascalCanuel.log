@@ -4,8 +4,8 @@
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(643): warning : expression has no effect
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(643): warning : expression has no effect
   Kernel.cu
-c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(64): warning C4267: 'initialisation' : conversion de 'size_t' en 'uint', perte possible de données
-c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(93): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(116): warning C4800: 'cudaError_t' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
+c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(65): warning C4267: 'initialisation' : conversion de 'size_t' en 'uint', perte possible de données
+c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(94): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:/Users/usager/documents/visual studio 2015/Projects/TextureLBP_PascalCanuel/TextureLBP_PascalCanuel/Kernel.cu(117): warning C4800: 'cudaError_t' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
   TextureLBP_PascalCanuel.cpp
   TextureLBP_PascalCanuel.vcxproj -> c:\users\usager\documents\visual studio 2015\Projects\TextureLBP_PascalCanuel\x64\Debug\TextureLBP_PascalCanuel.exe

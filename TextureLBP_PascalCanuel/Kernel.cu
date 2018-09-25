@@ -17,8 +17,9 @@ int iDivUp(int a, int b)
 	return ((a % b) != 0) ? (a / b + 1) : (a / b);
 }
 
+// if value superior or equal to 0 return 1, else return 0
 __device__
-int Signe(int pValue)
+int Sign(int pValue)
 {
 	int ret = 0;
 	if (pValue >= 0)
@@ -26,7 +27,7 @@ int Signe(int pValue)
 	return ret;
 }
 
-// kernel pour l'opérateur LBP
+// kernel for LBP operator
 __global__
 void Kernel_LBP(uchar* imgIn, uchar* imgOut, int ImgWidth, int imgHeight) {
 	int ImgNumColonne = blockIdx.x  * blockDim.x + threadIdx.x;
@@ -34,20 +35,21 @@ void Kernel_LBP(uchar* imgIn, uchar* imgOut, int ImgWidth, int imgHeight) {
 
 	int Index = (ImgNumLigne * ImgWidth) + ImgNumColonne;
 
-	if ((ImgNumColonne < ImgWidth - 2) && (ImgNumLigne < imgHeight - 2)) { // ne pas calculer les bordures
-		// valeur de centre
+	if ((ImgNumColonne < ImgWidth - 2) && (ImgNumLigne < imgHeight - 2)) { // don't calculate borders
+		// center value
 		int centerValue = imgIn[Index + ImgWidth + 1];
 		
-		// signe des valeurs
-		int tl = Signe(imgIn[Index] - centerValue);
-		int tc = Signe(imgIn[Index + 1] - centerValue);
-		int tr = Signe(imgIn[Index + 2] - centerValue);
-		int cl = Signe(imgIn[Index + ImgWidth] - centerValue);
-		int cr = Signe(imgIn[Index + ImgWidth + 2] - centerValue);
-		int bl = Signe(imgIn[Index + ImgWidth * 2] - centerValue);
-		int bc = Signe(imgIn[Index + ImgWidth * 2 + 1] - centerValue);
-		int br = Signe(imgIn[Index + ImgWidth * 2 + 2] - centerValue);
+		// sign of values
+		int tl = Sign(imgIn[Index] - centerValue);
+		int tc = Sign(imgIn[Index + 1] - centerValue);
+		int tr = Sign(imgIn[Index + 2] - centerValue);
+		int cl = Sign(imgIn[Index + ImgWidth] - centerValue);
+		int cr = Sign(imgIn[Index + ImgWidth + 2] - centerValue);
+		int bl = Sign(imgIn[Index + ImgWidth * 2] - centerValue);
+		int bc = Sign(imgIn[Index + ImgWidth * 2 + 1] - centerValue);
+		int br = Sign(imgIn[Index + ImgWidth * 2 + 2] - centerValue);
 
+		// convolution
 		imgOut[Index] = tl * 1 + tc * 2 + tr * 4 + cl * 8 + cr * 16 + bl * 32 + bc * 64 + bc * 128;
 	}
 }
@@ -88,7 +90,7 @@ extern "C" bool GPGPU_LBP(cv::Mat* imgIn, cv::Mat* imgOut)
 	}
 
 	//	4. Launch kernel
-	Kernel_LBP << <dimGrid, dimBlock >> >(gDevImage, gDevImageOut, imgIn->cols, imgIn->rows);
+	Kernel_LBP << <dimGrid, dimBlock >> >(gDevImage, gDevImageOut, imgIn->step1(), imgIn->rows);
 
 	//Wait for the kernel to end
 	cudaStatus = cudaDeviceSynchronize();
